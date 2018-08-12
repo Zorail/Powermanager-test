@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:title="Slot Information"
+        android:key="slot_info"
+    >
+        <CheckBoxPreference
+            android:key="push_notify"
+            android:summary="This will send push notification according to slots"
+            android:title="Enable or disable Push Notification"
+            android:defaultValue="true"
+            />
+    </PreferenceCategory>
+</PreferenceScreen>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/stats"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="My Stats" />
+        <item
+            android:id="@+id/details"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="My Details" />
+        <item
+            android:id="@+id/charts"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="My Charts" />
+        <item
+            android:id="@+id/pay"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Pay Bill" />
+    </group>
+
+    <item android:title="Communicate">
+        <menu>
+            <item
+                android:id="@+id/settings"
+                android:icon="@drawable/ic_menu_share"
+                android:title="Settings" />
+            <item
+                android:id="@+id/contact_us"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Contact Us" />
+            <item
+                android:title="@string/version" />
+        </menu>
+    </item>
+
+</menu>
