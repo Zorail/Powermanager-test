@@ -12,9 +12,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.zorail.powermanager.AboutUs.AboutUsFragment;
 import com.zorail.powermanager.Charts.ChartsFragment;
 import com.zorail.powermanager.ContactUs.ContactUsFragment;
 import com.zorail.powermanager.Details.DetailsFragment;
+import com.zorail.powermanager.Home.HomeFragment;
 import com.zorail.powermanager.PayBIll.PayBillFragment;
 import com.zorail.powermanager.Settings.SettingsFragment;
 import com.zorail.powermanager.Stats.StatsFragment;
@@ -86,7 +88,7 @@ public class Nav_Drawer extends AppCompatActivity
                 break;
 
             case R.id.home:
-                fragment = new ChartsFragment();
+                fragment = new HomeFragment();
                 break;
 
             case R.id.pay:
@@ -97,8 +99,12 @@ public class Nav_Drawer extends AppCompatActivity
                 fragment = new SettingsFragment();
                 break;
 
-            case R.id.contact_us:
+            case R.id.contact:
                 fragment = new ContactUsFragment();
+                break;
+
+            case R.id.about:
+                fragment = new AboutUsFragment();
                 break;
         }
 
