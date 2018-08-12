@@ -5,10 +5,6 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/home"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Home" />
-        <item
             android:id="@+id/stats"
             android:icon="@drawable/ic_menu_camera"
             android:title="My Stats" />
@@ -16,7 +12,10 @@
             android:id="@+id/details"
             android:icon="@drawable/ic_menu_gallery"
             android:title="My Details" />
-
+        <item
+            android:id="@+id/charts"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="My Charts" />
         <item
             android:id="@+id/pay"
             android:icon="@drawable/ic_menu_manage"
@@ -26,9 +25,16 @@
     <item android:title="Communicate">
         <menu>
             <item
-                android:id="@+id/settings"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Settings" />
+                android:id="@+id/about"
+                android:icon="@drawable/ic_menu_send"
+                android:title="About Us" />
+            <item
+                android:id="@+id/contact"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Contact Us" />
+            <item
+                android:title="@string/version"
+                />
         </menu>
     </item>
 
