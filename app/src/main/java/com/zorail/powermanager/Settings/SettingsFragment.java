@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 
 import com.zorail.powermanager.R;
 
-public class SettingsFragment extends PreferenceFragment {
+public class SettingsFragment extends Fragment {
 
 
     @Nullable

@@ -85,7 +85,7 @@ public class Nav_Drawer extends AppCompatActivity
                 fragment = new DetailsFragment();
                 break;
 
-            case R.id.charts:
+            case R.id.home:
                 fragment = new ChartsFragment();
                 break;
 
