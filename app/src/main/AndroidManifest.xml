@@ -4,7 +4,7 @@
     <application>
         <activity
             android:name="com.zorail.powermanager.Nav_Drawer"
-            android:label="@string/title_activity_nav__drawer"
+            android:label="Power Manager"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
