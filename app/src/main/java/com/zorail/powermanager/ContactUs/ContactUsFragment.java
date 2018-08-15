@@ -23,7 +23,7 @@ public class ContactUsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         try {
-            getActivity().setTitle("Details");
+            getActivity().setTitle("Contact Us");
         } catch (Exception e) {
             Log.d("Exception in contact us", e.toString());
 

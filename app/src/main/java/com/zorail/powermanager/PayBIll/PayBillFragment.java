@@ -23,7 +23,7 @@ public class PayBillFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         try {
-            getActivity().setTitle("Details");
+            getActivity().setTitle("Pay Bill");
         } catch (Exception e) {
             Log.d("Exception in payBill", e.toString());
 

@@ -25,7 +25,7 @@ public class SettingsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         try {
-            getActivity().setTitle("Details");
+            getActivity().setTitle("Settings");
         } catch (Exception e) {
             Log.d("Exception in settings", e.toString());
 
