@@ -65,20 +65,19 @@ public class Nav_Drawer extends AppCompatActivity
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+        displaySelectedScreen(item.getItemId());
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
+        return true;
     }
 
     private void displaySelectedScreen(int itemId) {
         Fragment fragment = null;
 
         switch (itemId) {
+            case R.id.charts:
+                fragment = new ChartsFragment();
+                break;
+
             case R.id.stats:
                 fragment = new StatsFragment();
                 break;
