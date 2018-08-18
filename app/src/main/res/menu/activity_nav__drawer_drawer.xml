@@ -38,7 +38,6 @@
                 android:title="Contact Us" />
             <item
                 android:title="@string/version"
-                m
                 />
         </menu>
     </item>
