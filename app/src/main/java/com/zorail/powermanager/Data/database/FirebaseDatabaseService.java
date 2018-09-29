@@ -124,7 +124,7 @@ public class FirebaseDatabaseService implements DataBaseSource {
 
     @Override
     public Observable<Pair<Usage, BoardDetails>> combinedUsageBoardDetails(String phone) {
-        Observable<Pair<Usage, BoardDetails>> combinedObservable = this.getUsageDetails(phone)
+        return this.getUsageDetails(phone)
                 .flatMap(new Function<Usage, ObservableSource<Pair<Usage, BoardDetails>>>() {
                     @Override
                     public ObservableSource<Pair<Usage, BoardDetails>> apply(Usage usage) throws Exception {
@@ -138,7 +138,6 @@ public class FirebaseDatabaseService implements DataBaseSource {
                                 });
                     }
                 });
-        return combinedObservable;
     }
 
 }

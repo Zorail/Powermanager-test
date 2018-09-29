@@ -113,7 +113,7 @@ public class HomeFragment extends Fragment implements HomeContract.View {
         }
         return boardDetails.slabs.get(i).charge;
     }
-    
+
     private String getMonthFromIndex(int index) {
         String months[] = { "Jan", "Feb", "Mar", "Apr", "May", "June", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"};
         return months[index-1];
