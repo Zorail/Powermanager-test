@@ -18,6 +18,8 @@ public class HomeFragment extends Fragment implements HomeContract.View {
     private ProgressBar progressBar;
     private View contentContainer;
 
+    HomePresenter presenter;
+
     public HomeFragment(){}
 
     public static HomeFragment newInstance() {
@@ -43,7 +45,7 @@ public class HomeFragment extends Fragment implements HomeContract.View {
 
     @Override
     public void setPresenter(HomeContract.Presenter presenter) {
-
+        this.presenter = (HomePresenter) presenter;
     }
 
     @Override

@@ -19,6 +19,6 @@ public interface HomeContract {
     }
 
     interface Presenter extends BasePresenter {
-        void getUser();
+        void getUser(String phone);
     }
 }
