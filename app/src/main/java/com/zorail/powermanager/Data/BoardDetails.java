@@ -1,29 +1,42 @@
 package com.zorail.powermanager.Data;
 
+import java.util.List;
+
 public class BoardDetails {
-    private String name;
-    private Slab slabs[];
+    public String name;
+//    public Slab slabs[];
+    public List<Slab> slabs;
+
+    @Override
+    public String toString() {
+        return "BoardDetails{" +
+                "name='" + name + '\'' +
+                ", slabs=" + slabs +
+                '}';
+    }
 
     public BoardDetails(){}
 
-    public BoardDetails(String name, Slab slabs[]) {
-            this.name = name;
-            this.slabs = slabs;
+
+    public String getName() {
+        return name;
     }
 
-    private String getName() {
-        return this.name;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    private Slab[] getSlabs() {
-        return this.slabs;
-    }
-
-    private void setSlabs(Slab slabs[]) {
+    public BoardDetails(String name, List<Slab> slabs) {
+        this.name = name;
         this.slabs = slabs;
     }
 
-    private void setName(String name) {
-        this.name = name;
+    public List<Slab> getSlabs() {
+        return slabs;
+
+    }
+
+    public void setSlabs(List<Slab> slabs) {
+        this.slabs = slabs;
     }
 }

@@ -1,13 +1,20 @@
 package com.zorail.powermanager.Home;
 
 import android.util.Log;
+import android.util.Pair;
 
+import com.zorail.powermanager.Data.BoardDetails;
 import com.zorail.powermanager.Data.Usage;
 import com.zorail.powermanager.Data.User;
 import com.zorail.powermanager.Data.database.DataBaseSource;
 import com.zorail.powermanager.Util.SchedulerProvider;
 
+import io.reactivex.Observable;
+import io.reactivex.ObservableSource;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.functions.BiFunction;
+import io.reactivex.functions.Function;
+import io.reactivex.internal.operators.observable.ObservableJust;
 import io.reactivex.observers.DisposableMaybeObserver;
 import io.reactivex.observers.DisposableObserver;
 
@@ -58,28 +65,54 @@ public class HomePresenter implements HomeContract.Presenter {
     public void getUsersUsage(String phone) {
         view.showProgressIndicator(true);
         disposable.add(
-                dataBaseSource.getUsageDetails(phone)
-                        .subscribeOn(schedulerProvider.io())
-                        .observeOn(schedulerProvider.ui())
-                        .subscribeWith(new DisposableObserver<Usage>() {
-                            @Override
-                            public void onNext(Usage usage) {
-                                view.showProgressIndicator(false);
-                                view.setUsageDetails(usage);
-                            }
+                dataBaseSource.combinedUsageBoardDetails(phone)
+                .subscribeOn(schedulerProvider.io())
+                .observeOn(schedulerProvider.ui())
+                .subscribeWith(new DisposableObserver<Pair<Usage, BoardDetails>>() {
+                    @Override
+                    public void onNext(Pair<Usage, BoardDetails> usageBoardDetailsPair) {
+                        Log.d("Combined", usageBoardDetailsPair.toString());
+                        view.showProgressIndicator(false);
+                        view.setUsageDetails(usageBoardDetailsPair.first, usageBoardDetailsPair.second);
+                    }
 
-                            @Override
-                            public void onError(Throwable e) {
-                                view.showProgressIndicator(false);
-                                view.makeToast(e.getMessage());
-                            }
+                    @Override
+                    public void onError(Throwable e) {
+                        view.showProgressIndicator(false);
+                        view.makeToast(e.getMessage());
+                    }
 
-                            @Override
-                            public void onComplete() {
+                    @Override
+                    public void onComplete() {
 
-                            }
-                        })
+                    }
+                })
         );
+//        view.showProgressIndicator(true);
+//        disposable.add(
+//                dataBaseSource.getUsageDetails(phone)
+//                        .subscribeOn(schedulerProvider.io())
+//                        .observeOn(schedulerProvider.ui())
+//                        .flatMap(usage -> dataBaseSource.getBoardDetails(String.valueOf(usage.getB_id())))
+//                        .subscribeWith(new DisposableObserver<Usage>() {
+//                            @Override
+//                            public void onNext(Usage usage) {
+//                                view.showProgressIndicator(false);
+//                                view.setUsageDetails(usage);
+//                            }
+//
+//                            @Override
+//                            public void onError(Throwable e) {
+//                                view.showProgressIndicator(false);
+//                                view.makeToast(e.getMessage());
+//                            }
+//
+//                            @Override
+//                            public void onComplete() {
+//
+//                            }
+//                        })
+//        );
     }
 
     @Override

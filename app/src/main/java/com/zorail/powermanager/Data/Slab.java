@@ -1,15 +1,24 @@
 package com.zorail.powermanager.Data;
 
 public class Slab {
-    private float charge;
-    private int lower;
-    private int upper;
+    public int charge;
+    public int lower;
+    public int upper;
 
     public Slab(){}
 
-    public Slab(float charge, int lower, int upper) {
+    public Slab(int charge, int lower, int upper) {
         this.charge = charge;
         this.lower = lower;
         this.upper = upper;
+    }
+
+    @Override
+    public String toString() {
+        return "Slab{" +
+                "charge=" + charge +
+                ", lower=" + lower +
+                ", upper=" + upper +
+                '}';
     }
 }

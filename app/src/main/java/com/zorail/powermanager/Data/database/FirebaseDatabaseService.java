@@ -1,7 +1,9 @@
 package com.zorail.powermanager.Data.database;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.util.Log;
+import android.util.Pair;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -18,6 +20,9 @@ import io.reactivex.MaybeOnSubscribe;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.ObservableSource;
+import io.reactivex.functions.BiFunction;
+import io.reactivex.functions.Function;
 
 public class FirebaseDatabaseService implements DataBaseSource {
 
@@ -27,35 +32,6 @@ public class FirebaseDatabaseService implements DataBaseSource {
 
     public static FirebaseDatabaseService getInstance() {
         return new FirebaseDatabaseService();
-    }
-
-    @Override
-    public Maybe<BoardDetails> getBoardDetails(final String phone) {
-        return Maybe.create(
-                new MaybeOnSubscribe<BoardDetails>() {
-                    @Override
-                    public void subscribe(final MaybeEmitter<BoardDetails> e) throws Exception {
-                        final DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-                        final DatabaseReference idRef = rootRef.child(BOARD_DETAILS).child(phone);
-                        idRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                if(dataSnapshot.exists()){
-                                    BoardDetails boardDetails = dataSnapshot.getValue(BoardDetails.class);
-                                    e.onSuccess(boardDetails);
-                                } else {
-                                    e.onComplete();
-                                }
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError databaseError) {
-                                e.onError(databaseError.toException());
-                            }
-                        });
-                    }
-                }
-        );
     }
 
     @Override
@@ -114,6 +90,55 @@ public class FirebaseDatabaseService implements DataBaseSource {
                     }
                 }
         );
+    }
+
+    @Override
+    public Observable<BoardDetails> getBoardDetails(final String boardId) {
+        Log.d("BoardId", boardId);
+        return Observable.create(
+                new ObservableOnSubscribe<BoardDetails>() {
+                    @Override
+                    public void subscribe(final ObservableEmitter<BoardDetails> emitter) throws Exception {
+                        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+                        DatabaseReference boardRef = rootRef.child(BOARD_DETAILS).child(boardId);
+                        boardRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                if(dataSnapshot.exists()){
+                                    BoardDetails details = dataSnapshot.getValue(BoardDetails.class);
+                                    emitter.onNext(details);
+                                } else {
+                                    emitter.onComplete();
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+                                emitter.onError(databaseError.toException());
+                            }
+                        });
+                    }
+                }
+        );
+    }
+
+    @Override
+    public Observable<Pair<Usage, BoardDetails>> combinedUsageBoardDetails(String phone) {
+        Observable<Pair<Usage, BoardDetails>> combinedObservable = this.getUsageDetails(phone)
+                .flatMap(new Function<Usage, ObservableSource<Pair<Usage, BoardDetails>>>() {
+                    @Override
+                    public ObservableSource<Pair<Usage, BoardDetails>> apply(Usage usage) throws Exception {
+                        return Observable.just(usage).zipWith(
+                                getBoardDetails(String.valueOf(usage.getB_id())),
+                                new BiFunction<Usage, BoardDetails, Pair<Usage, BoardDetails>>() {
+                                    @Override
+                                    public Pair<Usage, BoardDetails> apply(Usage usage, BoardDetails boardDetails) throws Exception {
+                                        return new Pair<>(usage, boardDetails);
+                                    }
+                                });
+                    }
+                });
+        return combinedObservable;
     }
 
 }

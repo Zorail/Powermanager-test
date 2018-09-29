@@ -2,6 +2,7 @@ package com.zorail.powermanager.Home;
 
 import com.zorail.powermanager.BasePresenter;
 import com.zorail.powermanager.BaseView;
+import com.zorail.powermanager.Data.BoardDetails;
 import com.zorail.powermanager.Data.Usage;
 
 public interface HomeContract {
@@ -18,7 +19,7 @@ public interface HomeContract {
 
         void showProgressIndicator(Boolean show);
 
-        void setUsageDetails(Usage usage);
+        void setUsageDetails(Usage usage, BoardDetails boardDetails);
     }
 
     interface Presenter extends BasePresenter {

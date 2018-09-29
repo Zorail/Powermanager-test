@@ -12,6 +12,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.zorail.powermanager.Data.BoardDetails;
 import com.zorail.powermanager.Data.Usage;
 import com.zorail.powermanager.Data.database.DataBaseSource;
 import com.zorail.powermanager.Data.database.FirebaseDatabaseService;
@@ -95,7 +96,7 @@ public class HomeFragment extends Fragment implements HomeContract.View {
     }
 
     @Override
-    public void setUsageDetails(Usage usage) {
+    public void setUsageDetails(Usage usage, BoardDetails boardDetails) {
         present_units.setText(String.valueOf(usage.getP_units()));
         present_month.setText(getMonthFromIndex(usage.getP_month()));
     }
