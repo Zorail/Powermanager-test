@@ -8,6 +8,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.zorail.powermanager.Data.BoardDetails;
+import com.zorail.powermanager.Data.Usage;
 import com.zorail.powermanager.Data.User;
 
 import io.reactivex.Maybe;
@@ -18,6 +19,7 @@ public class FirebaseDatabaseService implements DataBaseSource {
 
     private static final String BOARD_DETAILS = "b_details";
     private static final String USER_DETAILS = "user_details";
+    private static final String USAGE = "usage";
 
     @Override
     public Maybe<BoardDetails> getBoardDetails(final String phone) {
@@ -70,6 +72,35 @@ public class FirebaseDatabaseService implements DataBaseSource {
                             @Override
                             public void onCancelled(@NonNull DatabaseError databaseError) {
                                 emitter.onError(databaseError.toException());
+                            }
+                        });
+                    }
+                }
+        );
+    }
+
+    @Override
+    public Maybe<Usage> getUsageDetails(final String phone) {
+        return Maybe.create(
+                new MaybeOnSubscribe<Usage>() {
+                    @Override
+                    public void subscribe(final MaybeEmitter<Usage> emitter) throws Exception {
+                        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+                        DatabaseReference userRef = rootRef.child(USAGE).child(phone);
+                        userRef.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                if (dataSnapshot.exists()) {
+                                    Usage usage = dataSnapshot.getValue(Usage.class);
+                                    emitter.onSuccess(usage);
+                                } else {
+                                    emitter.onComplete();
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                                    emitter.onError(databaseError.toException());
                             }
                         });
                     }
