@@ -29,7 +29,7 @@ public class HomeFragment extends Fragment implements HomeContract.View {
     private CompositeDisposable disposable = new CompositeDisposable();
     private SchedulerProvider schedulerProvider = SchedulerProvider.getInstance();
 
-    private TextView present_units, present_month;
+    private TextView present_units, present_month, present_slab;
 
     HomePresenter presenter;
 
@@ -55,6 +55,7 @@ public class HomeFragment extends Fragment implements HomeContract.View {
         progressBar = v.findViewById(R.id.progressBar);
         present_units = v.findViewById(R.id.present_units);
         present_month = v.findViewById(R.id.present_month);
+        present_slab = v.findViewById(R.id.present_slab);
         presenter.getUsersUsage("8658558521");
         return v;
     }
@@ -99,8 +100,18 @@ public class HomeFragment extends Fragment implements HomeContract.View {
     public void setUsageDetails(Usage usage, BoardDetails boardDetails) {
         present_units.setText(String.valueOf(usage.getP_units()));
         present_month.setText(getMonthFromIndex(usage.getP_month()));
+        present_slab.setText(String.valueOf(getSlab(usage.getP_units(),boardDetails)));
     }
 
+    private int getSlab(int presentUnits, BoardDetails boardDetails) {
+        int i;
+        for(i=0;i<boardDetails.slabs.size();i++) {
+            if(presentUnits>=boardDetails.slabs.get(i).lower && presentUnits<boardDetails.slabs.get(i).upper)
+                break;
+        }
+        return boardDetails.slabs.get(i).charge;
+    }
+    
     private String getMonthFromIndex(int index) {
         String months[] = { "Jan", "Feb", "Mar", "Apr", "May", "June", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"};
         return months[index-1];
