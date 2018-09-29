@@ -1,5 +1,6 @@
 package com.zorail.powermanager.Home;
 
+import com.zorail.powermanager.Data.Usage;
 import com.zorail.powermanager.Data.User;
 import com.zorail.powermanager.Data.database.DataBaseSource;
 import com.zorail.powermanager.Util.SchedulerProvider;
@@ -14,7 +15,7 @@ public class HomePresenter implements HomeContract.Presenter {
     private DataBaseSource dataBaseSource;
     private SchedulerProvider schedulerProvider;
 
-    public HomePresenter(HomeContract.View view, CompositeDisposable disposable, DataBaseSource dataBaseSource, SchedulerProvider schedulerProvider) {
+    HomePresenter(HomeContract.View view, CompositeDisposable disposable, DataBaseSource dataBaseSource, SchedulerProvider schedulerProvider) {
         this.view = view;
         this.disposable = disposable;
         this.dataBaseSource = dataBaseSource;
@@ -47,6 +48,34 @@ public class HomePresenter implements HomeContract.Presenter {
 
                         }
                     })
+        );
+    }
+
+    @Override
+    public void getUsersUsage(String phone) {
+        view.showProgressIndicator(true);
+        disposable.add(
+                dataBaseSource.getUsageDetails(phone)
+                        .subscribeOn(schedulerProvider.io())
+                        .observeOn(schedulerProvider.ui())
+                        .subscribeWith(new DisposableMaybeObserver<Usage>() {
+                            @Override
+                            public void onSuccess(Usage usage) {
+                                view.setUsageDetails(usage);
+                                view.showProgressIndicator(false);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                view.showProgressIndicator(false);
+                                view.makeToast(e.toString());
+                            }
+
+                            @Override
+                            public void onComplete() {
+
+                            }
+                        })
         );
     }
 

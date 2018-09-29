@@ -11,12 +11,21 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.zorail.powermanager.Data.Usage;
+import com.zorail.powermanager.Data.database.DataBaseSource;
+import com.zorail.powermanager.Data.database.FirebaseDatabaseService;
 import com.zorail.powermanager.R;
+import com.zorail.powermanager.Util.SchedulerProvider;
+
+import io.reactivex.disposables.CompositeDisposable;
 
 public class HomeFragment extends Fragment implements HomeContract.View {
 
     private ProgressBar progressBar;
     private View contentContainer;
+    private DataBaseSource dataBaseSource = FirebaseDatabaseService.getInstance();
+    private CompositeDisposable disposable = new CompositeDisposable();
+    private SchedulerProvider schedulerProvider = SchedulerProvider.getInstance();
 
     HomePresenter presenter;
 
@@ -26,10 +35,21 @@ public class HomeFragment extends Fragment implements HomeContract.View {
         return new HomeFragment();
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if(presenter == null) {
+            presenter = new HomePresenter(this, disposable, dataBaseSource, schedulerProvider);
+        }
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.home_fragment, container, false);
+        contentContainer = v.findViewById(R.id.contentContainer);
+        progressBar = v.findViewById(R.id.progressBar);
+        presenter.getUsersUsage("8658558521");
         return v;
     }
 
@@ -67,5 +87,10 @@ public class HomeFragment extends Fragment implements HomeContract.View {
             progressBar.setVisibility(View.GONE);
             contentContainer.setVisibility(View.VISIBLE);
         }
+    }
+
+    @Override
+    public void setUsageDetails(Usage usage) {
+
     }
 }

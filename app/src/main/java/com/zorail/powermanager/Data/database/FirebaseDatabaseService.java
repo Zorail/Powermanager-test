@@ -1,6 +1,7 @@
 package com.zorail.powermanager.Data.database;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -20,6 +21,10 @@ public class FirebaseDatabaseService implements DataBaseSource {
     private static final String BOARD_DETAILS = "b_details";
     private static final String USER_DETAILS = "user_details";
     private static final String USAGE = "usage";
+
+    public static FirebaseDatabaseService getInstance() {
+        return new FirebaseDatabaseService();
+    }
 
     @Override
     public Maybe<BoardDetails> getBoardDetails(final String phone) {
@@ -85,13 +90,15 @@ public class FirebaseDatabaseService implements DataBaseSource {
                 new MaybeOnSubscribe<Usage>() {
                     @Override
                     public void subscribe(final MaybeEmitter<Usage> emitter) throws Exception {
-                        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+                        Log.d("TAg2", "here");
+                        final DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
                         DatabaseReference userRef = rootRef.child(USAGE).child(phone);
                         userRef.addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                 if (dataSnapshot.exists()) {
                                     Usage usage = dataSnapshot.getValue(Usage.class);
+                                    Log.d("Usage", usage.toString());
                                     emitter.onSuccess(usage);
                                 } else {
                                     emitter.onComplete();
@@ -101,6 +108,7 @@ public class FirebaseDatabaseService implements DataBaseSource {
                             @Override
                             public void onCancelled(@NonNull DatabaseError databaseError) {
                                     emitter.onError(databaseError.toException());
+                                    Log.d("Tag2", databaseError.toString());
                             }
                         });
                     }

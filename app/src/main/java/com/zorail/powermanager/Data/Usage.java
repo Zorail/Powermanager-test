@@ -1,13 +1,15 @@
 package com.zorail.powermanager.Data;
 
 public class Usage {
-    private String b_id;
+    private int b_id;
     private int p_month;
     private int p_slab;
-    private float p_units;
-    private float start_unit;
+    private int p_units;
+    private int start_unit;
 
-    public Usage(String b_id, int p_month, int p_slab, float p_units, float start_unit) {
+    public Usage() {}
+
+    public Usage(int b_id, int p_month, int p_slab, int p_units, int start_unit) {
         this.b_id = b_id;
         this.p_month = p_month;
         this.p_slab = p_slab;
@@ -15,11 +17,22 @@ public class Usage {
         this.start_unit = start_unit;
     }
 
-    public String getB_id() {
+    @Override
+    public String toString() {
+        return "Usage{" +
+                "b_id='" + b_id + '\'' +
+                ", p_month=" + p_month +
+                ", p_slab=" + p_slab +
+                ", p_units=" + p_units +
+                ", start_unit=" + start_unit +
+                '}';
+    }
+
+    public int getB_id() {
         return b_id;
     }
 
-    public void setB_id(String b_id) {
+    public void setB_id(int b_id) {
         this.b_id = b_id;
     }
 
@@ -43,7 +56,7 @@ public class Usage {
         return p_units;
     }
 
-    public void setP_units(float p_units) {
+    public void setP_units(int p_units) {
         this.p_units = p_units;
     }
 
@@ -51,7 +64,7 @@ public class Usage {
         return start_unit;
     }
 
-    public void setStart_unit(float start_unit) {
+    public void setStart_unit(int start_unit) {
         this.start_unit = start_unit;
     }
 }
