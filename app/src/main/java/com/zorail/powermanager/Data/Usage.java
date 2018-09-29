@@ -44,15 +44,15 @@ public class Usage {
         this.p_month = p_month;
     }
 
-    public int getSlab() {
+    public int getP_slab() {
         return p_slab;
     }
 
-    public void setSlab(int p_slab) {
+    public void setP_slab(int p_slab) {
         this.p_slab = p_slab;
     }
 
-    public float getP_units() {
+    public int getP_units() {
         return p_units;
     }
 
@@ -60,7 +60,7 @@ public class Usage {
         this.p_units = p_units;
     }
 
-    public float getStart_unit() {
+    public int getStart_unit() {
         return start_unit;
     }
 

@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.zorail.powermanager.Data.Usage;
@@ -26,6 +27,8 @@ public class HomeFragment extends Fragment implements HomeContract.View {
     private DataBaseSource dataBaseSource = FirebaseDatabaseService.getInstance();
     private CompositeDisposable disposable = new CompositeDisposable();
     private SchedulerProvider schedulerProvider = SchedulerProvider.getInstance();
+
+    private TextView present_units, present_month;
 
     HomePresenter presenter;
 
@@ -49,6 +52,8 @@ public class HomeFragment extends Fragment implements HomeContract.View {
         View v = inflater.inflate(R.layout.home_fragment, container, false);
         contentContainer = v.findViewById(R.id.contentContainer);
         progressBar = v.findViewById(R.id.progressBar);
+        present_units = v.findViewById(R.id.present_units);
+        present_month = v.findViewById(R.id.present_month);
         presenter.getUsersUsage("8658558521");
         return v;
     }
@@ -82,15 +87,21 @@ public class HomeFragment extends Fragment implements HomeContract.View {
     public void showProgressIndicator(Boolean show) {
         if(show) {
             progressBar.setVisibility(View.VISIBLE);
-            contentContainer.setVisibility(View.GONE);
+            contentContainer.setVisibility(View.INVISIBLE);
         } else {
-            progressBar.setVisibility(View.GONE);
+            progressBar.setVisibility(View.INVISIBLE);
             contentContainer.setVisibility(View.VISIBLE);
         }
     }
 
     @Override
     public void setUsageDetails(Usage usage) {
+        present_units.setText(String.valueOf(usage.getP_units()));
+        present_month.setText(getMonthFromIndex(usage.getP_month()));
+    }
 
+    private String getMonthFromIndex(int index) {
+        String months[] = { "Jan", "Feb", "Mar", "Apr", "May", "June", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"};
+        return months[index-1];
     }
 }

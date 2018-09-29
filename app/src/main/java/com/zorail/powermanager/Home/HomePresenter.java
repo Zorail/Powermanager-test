@@ -1,5 +1,7 @@
 package com.zorail.powermanager.Home;
 
+import android.util.Log;
+
 import com.zorail.powermanager.Data.Usage;
 import com.zorail.powermanager.Data.User;
 import com.zorail.powermanager.Data.database.DataBaseSource;
@@ -7,6 +9,7 @@ import com.zorail.powermanager.Util.SchedulerProvider;
 
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.DisposableMaybeObserver;
+import io.reactivex.observers.DisposableObserver;
 
 public class HomePresenter implements HomeContract.Presenter {
 
@@ -58,17 +61,17 @@ public class HomePresenter implements HomeContract.Presenter {
                 dataBaseSource.getUsageDetails(phone)
                         .subscribeOn(schedulerProvider.io())
                         .observeOn(schedulerProvider.ui())
-                        .subscribeWith(new DisposableMaybeObserver<Usage>() {
+                        .subscribeWith(new DisposableObserver<Usage>() {
                             @Override
-                            public void onSuccess(Usage usage) {
-                                view.setUsageDetails(usage);
+                            public void onNext(Usage usage) {
                                 view.showProgressIndicator(false);
+                                view.setUsageDetails(usage);
                             }
 
                             @Override
                             public void onError(Throwable e) {
                                 view.showProgressIndicator(false);
-                                view.makeToast(e.toString());
+                                view.makeToast(e.getMessage());
                             }
 
                             @Override

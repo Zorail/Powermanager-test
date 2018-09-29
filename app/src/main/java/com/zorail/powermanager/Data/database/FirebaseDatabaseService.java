@@ -15,6 +15,9 @@ import com.zorail.powermanager.Data.User;
 import io.reactivex.Maybe;
 import io.reactivex.MaybeEmitter;
 import io.reactivex.MaybeOnSubscribe;
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
 
 public class FirebaseDatabaseService implements DataBaseSource {
 
@@ -85,12 +88,11 @@ public class FirebaseDatabaseService implements DataBaseSource {
     }
 
     @Override
-    public Maybe<Usage> getUsageDetails(final String phone) {
-        return Maybe.create(
-                new MaybeOnSubscribe<Usage>() {
+    public Observable<Usage> getUsageDetails(final String phone) {
+        return Observable.create(
+                new ObservableOnSubscribe<Usage>() {
                     @Override
-                    public void subscribe(final MaybeEmitter<Usage> emitter) throws Exception {
-                        Log.d("TAg2", "here");
+                    public void subscribe(final ObservableEmitter<Usage> emitter) throws Exception {
                         final DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
                         DatabaseReference userRef = rootRef.child(USAGE).child(phone);
                         userRef.addValueEventListener(new ValueEventListener() {
@@ -98,8 +100,7 @@ public class FirebaseDatabaseService implements DataBaseSource {
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                 if (dataSnapshot.exists()) {
                                     Usage usage = dataSnapshot.getValue(Usage.class);
-                                    Log.d("Usage", usage.toString());
-                                    emitter.onSuccess(usage);
+                                    emitter.onNext(usage);
                                 } else {
                                     emitter.onComplete();
                                 }
@@ -107,12 +108,12 @@ public class FirebaseDatabaseService implements DataBaseSource {
 
                             @Override
                             public void onCancelled(@NonNull DatabaseError databaseError) {
-                                    emitter.onError(databaseError.toException());
-                                    Log.d("Tag2", databaseError.toString());
+                                emitter.onError(databaseError.toException());
                             }
                         });
                     }
                 }
         );
     }
+
 }
