@@ -9,12 +9,7 @@ import com.zorail.powermanager.Data.User;
 import com.zorail.powermanager.Data.database.DataBaseSource;
 import com.zorail.powermanager.Util.SchedulerProvider;
 
-import io.reactivex.Observable;
-import io.reactivex.ObservableSource;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.functions.BiFunction;
-import io.reactivex.functions.Function;
-import io.reactivex.internal.operators.observable.ObservableJust;
 import io.reactivex.observers.DisposableMaybeObserver;
 import io.reactivex.observers.DisposableObserver;
 
