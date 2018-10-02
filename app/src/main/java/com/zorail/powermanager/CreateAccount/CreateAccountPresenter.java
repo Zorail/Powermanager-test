@@ -10,6 +10,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.zorail.powermanager.Util.SessionManager;
 
 import java.util.concurrent.TimeUnit;
 
@@ -19,7 +20,7 @@ public class CreateAccountPresenter implements CreateAccountContract.Presenter {
     private FirebaseAuth mAuth;
     private String verificationId;
 
-    public CreateAccountPresenter(CreateAccountContract.View view) {
+    CreateAccountPresenter(CreateAccountContract.View view) {
         this.view = view;
         mAuth = FirebaseAuth.getInstance();
         view.setPresenter(this);
