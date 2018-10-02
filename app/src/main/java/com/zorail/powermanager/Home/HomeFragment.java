@@ -106,11 +106,16 @@ public class HomeFragment extends Fragment implements HomeContract.View {
     }
 
     private int getSlab(int presentUnits, BoardDetails boardDetails) {
-        int i;
-        for(i=0;i<boardDetails.slabs.size();i++) {
-            if(presentUnits>=boardDetails.slabs.get(i).lower && presentUnits<boardDetails.slabs.get(i).upper)
+        int i,f=0;
+        int size=boardDetails.slabs.size();
+        for(i=0;i<size-1;i++) {
+            if(presentUnits>=boardDetails.slabs.get(i).lower && presentUnits<=boardDetails.slabs.get(i).upper) {
+                f = 1;
                 break;
+            }
         }
+        if(f==0)
+            i=size-1;
         return boardDetails.slabs.get(i).charge;
     }
 
@@ -120,11 +125,16 @@ public class HomeFragment extends Fragment implements HomeContract.View {
     }
 
     private int getRemainingunits(int presentUnits, BoardDetails boardDetails) {
-        int i;
-        for(i=0;i<boardDetails.slabs.size();i++) {
-            if(presentUnits>=boardDetails.slabs.get(i).lower && presentUnits<boardDetails.slabs.get(i).upper)
+        int i,f=0;
+        int size=boardDetails.slabs.size();
+        for(i=0;i<size-1;i++) {
+            if(presentUnits>=boardDetails.slabs.get(i).lower && presentUnits<=boardDetails.slabs.get(i).upper) {
+                f = 1;
                 break;
+            }
         }
+        if(f==0)
+            i=size-1;
         return boardDetails.slabs.get(i).upper-presentUnits;
     }
 }
