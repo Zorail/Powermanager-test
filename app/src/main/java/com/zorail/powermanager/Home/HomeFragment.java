@@ -34,7 +34,6 @@ public class HomeFragment extends Fragment implements HomeContract.View {
     HomePresenter presenter;
 
     public HomeFragment(){}
-
     public static HomeFragment newInstance() {
         return new HomeFragment();
     }
