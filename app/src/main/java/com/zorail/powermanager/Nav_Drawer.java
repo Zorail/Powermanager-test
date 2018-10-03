@@ -16,7 +16,6 @@ import android.view.MenuItem;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.zorail.powermanager.AboutUs.AboutUsFragment;
-import com.zorail.powermanager.Charts.ChartsFragment;
 import com.zorail.powermanager.ContactUs.ContactUsFragment;
 import com.zorail.powermanager.Details.DetailsFragment;
 import com.zorail.powermanager.Home.HomeFragment;
@@ -76,10 +75,6 @@ public class Nav_Drawer extends AppCompatActivity
         Fragment fragment = null;
 
         switch (itemId) {
-            case R.id.charts:
-                fragment = new ChartsFragment();
-                break;
-
             case R.id.stats:
                 fragment = new StatsFragment();
                 break;

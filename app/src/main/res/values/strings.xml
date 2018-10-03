@@ -8,12 +8,19 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Logout</string>
     <string name="title_activity_nav__drawer">Nav_Drawer</string>
-    <string name="version">Version 1.0.0</string>
     <string name="header_welcome">Welcome to PowerManager</string>
     <string name="header_create">Create a New Account</string>
     <string name="prompt_name">Name</string>
     <string name="hint_username">John Smith</string>
+    <string name="line1">-> Reducing power losses, assimilation of renewable energy and load management all over</string>
+    <string name="line2">-> Notifies the user of their electricity consumption</string>
+    <string name="line3">-> Minimizes Bill Amount</string>
+    <string name="line4">-> Monitors day-to-day usage</string>
+    <string name="line5">-> Developers</string>
+    <string name="line6">Rohan Seth</string>
+    <string name="line7">Souvik Gorai</string>
+    <string name="line8">Prabhat Tripathi</string>
+    <string name="version">Version: 1.0.0</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>
