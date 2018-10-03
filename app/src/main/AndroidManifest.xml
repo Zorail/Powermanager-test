@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission-sdk-23 android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
 
     <application
         android:theme="@style/Theme.AppCompat"
@@ -21,6 +22,10 @@
             android:name=".Nav_Drawer"
             android:label="Power Manager"
             android:theme="@style/AppTheme.NoActionBar" />
+
+        <meta-data
+            android:name="com.razorpay.ApiKey"
+            android:value="rzp_test_Ha12hovbT4dD3F" />
     </application>
 
 </manifest>
