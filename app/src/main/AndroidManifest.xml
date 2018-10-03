@@ -1,21 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.zorail.powermanager">
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission-sdk-23 android:name="android.permission.INTERNET"/>
 
-    <application
-        android:theme="@style/Theme.AppCompat">
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <uses-permission-sdk-23 android:name="android.permission.INTERNET" />
+
+    <application android:theme="@style/Theme.AppCompat">
         <activity
             android:name=".StarterActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".Nav_Drawer"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:label="Power Manager"/>
+            android:label="Power Manager"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
+
 </manifest>
