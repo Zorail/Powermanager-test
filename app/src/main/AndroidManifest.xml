@@ -4,7 +4,8 @@
     <uses-permission-sdk-23 android:name="android.permission.INTERNET"/>
 
     <application
-        android:theme="@style/Theme.AppCompat">
+        android:theme="@style/Theme.AppCompat"
+        android:label="PowerManager">
         <activity
             android:name=".StarterActivity"
             android:screenOrientation="portrait">

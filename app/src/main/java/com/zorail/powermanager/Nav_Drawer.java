@@ -1,5 +1,6 @@
 package com.zorail.powermanager;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -12,6 +13,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.zorail.powermanager.AboutUs.AboutUsFragment;
 import com.zorail.powermanager.Charts.ChartsFragment;
 import com.zorail.powermanager.ContactUs.ContactUsFragment;
@@ -20,6 +23,7 @@ import com.zorail.powermanager.Home.HomeFragment;
 import com.zorail.powermanager.PayBIll.PayBillFragment;
 import com.zorail.powermanager.Settings.SettingsFragment;
 import com.zorail.powermanager.Stats.StatsFragment;
+import com.zorail.powermanager.Util.SessionManager;
 
 public class Nav_Drawer extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -103,6 +107,14 @@ public class Nav_Drawer extends AppCompatActivity
             case R.id.about:
                 fragment = new AboutUsFragment();
                 break;
+
+            case R.id.logout:
+                FirebaseAuth.getInstance().signOut();
+                SessionManager sessionManager = new SessionManager(this);
+                sessionManager.setLogin(false);
+                Intent i = new Intent(Nav_Drawer.this, StarterActivity.class);
+                startActivity(i);
+                break;
         }
 
         if (fragment != null) {
@@ -124,4 +136,5 @@ public class Nav_Drawer extends AppCompatActivity
 
         return true;
     }
+
 }

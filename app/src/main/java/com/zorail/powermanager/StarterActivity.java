@@ -57,4 +57,9 @@ public class StarterActivity extends AppCompatActivity {
 
 
     }
+
+    @Override
+    public void onBackPressed() {
+//        super.onBackPressed();
+    }
 }
