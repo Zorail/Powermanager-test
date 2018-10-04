@@ -102,7 +102,11 @@ public class HomeFragment extends Fragment implements HomeContract.View {
         present_units.setText(String.valueOf(usage.getP_units()));
         present_month.setText(getMonthFromIndex(usage.getP_month()));
         present_slab.setText(String.valueOf(getSlab(usage.getP_units(),boardDetails)));
-        rem_units.setText(String.valueOf(getRemainingunits(usage.getP_units(),boardDetails)));
+        int rem = getRemainingunits(usage.getP_units(),boardDetails);
+        if(rem>=0)
+            rem_units.setText(String.valueOf(rem));
+        else
+            rem_units.setText("0");
     }
 
     private int getSlab(int presentUnits, BoardDetails boardDetails) {
